@@ -1,1 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K. JOFFRET | IA & Data</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23050505'/%3E%3Ctext y='70' x='20' font-size='65' fill='%2300ffcc' font-family='monospace' font-weight='bold'%3E%3E_%3C/text%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #050505;
+            --bg-card: #111111;
+            --primary: #00ffcc;
+            --secondary: #7000ff;
+            --text-light: #ffffff;
+            --text-muted: #888888;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --svg-opacity: 0.25;
+        }
 
+        [data-theme="light"] {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --primary: #0284c7;
+            --secondary: #4f46e5;
+            --text-light: #0f172a;
+            --text-muted: #475569;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --svg-opacity: 0.35;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            overflow-x: hidden;
+            background-image: linear-gradient(var(--border-color) 1px, transparent 1px), linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3 { font-family: 'Outfit', sans-serif; }
+        .highlight { background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .animated-name {
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* Nouvelles icônes filaires premium au premier plan */
+        .bg-decorations { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+        .static-svg { position: absolute; stroke: var(--primary); stroke-width: 1.5; opacity: var(--svg-opacity); transition: opacity 0.3s, stroke 0.3s; fill: none; }
+        .svg-1 { top: 12%; right: 12%; width: 140px; }
+        .svg-2 { bottom: 18%; left: 8%; width: 120px; }
+        .svg-3 { top: 48%; left: 22%; width: 105px; }
+
+        nav { position: fixed; width: 100%; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-color); z-index: 1000; transition: 0.3s; }
+        nav.scrolled { background: var(--bg-main); padding: 15px 50px; }
+        .logo { font-size: 24px; font-weight: 900; letter-spacing: 2px; }
+        .nav-controls { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 500; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        .btn-icon { background: transparent; border: none; color: var(--text-light); font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        .btn-icon:hover { color: var(--primary); }
+
+        section { padding: 0 10%; height: 100vh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; scroll-snap-stop: always; position: relative; }
+        .hero-content-wrapper { position: relative; z-index: 3; }
+        .hero-title { font-size: 5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; }
+        .hero-subtitle { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 30px; min-height: 40px; font-weight: 500; display: flex; align-items: center; }
+        .cursor { display: inline-block; width: 3px; height: 1.5rem; background-color: var(--primary); margin-left: 5px; animation: blink 0.8s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .btn { padding: 15px 30px; font-family: inherit; font-weight: 700; font-size: 16px; color: #fff; background: var(--primary); border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 0 100%); transition: 0.3s; text-decoration: none; display: inline-block; text-align: center;}
+        .btn:hover { background: var(--secondary); transform: translateY(-3px); }
+
+        .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; margin-top: 30px; z-index: 2; }
+        .box { background: var(--bg-card); padding: 40px; border: 1px solid var(--border-color); position: relative; }
+        .box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+        .text-content { font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 15px; }
+        .skills { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .skill-tag { padding: 8px 16px; background: rgba(2, 132, 199, 0.05); border: 1px solid var(--primary); color: var(--primary); font-weight: 700; font-size: 13px; letter-spacing: 1px; }
+
+        .projects-container { display: flex; flex-direction: column; gap: 30px; margin-top: 30px; z-index: 2; max-height: 65vh; overflow-y: auto; padding-right: 15px; }
+        .projects-container::-webkit-scrollbar { width: 6px; }
+        .projects-container::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+        .project-card { background: var(--bg-card); border: 1px solid var(--border-color); display: grid; grid-template-columns: 1fr 1.3fr; min-height: 280px; transition: 0.4s; overflow: hidden; border-radius: 4px; }
+        .project-card:hover { border-color: var(--secondary); }
+        .project-visual { background: linear-gradient(45deg, var(--bg-main), var(--bg-card)); position: relative; overflow: hidden; border-right: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; }
+        .project-visual img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease-in-out; z-index: 1; }
+        .project-visual img.active { opacity: 1; }
+        .project-visual i { position: relative; z-index: 0; color: var(--primary); opacity: 0.15; transition: 0.3s; }
+        .project-card:hover .project-visual i { opacity: 0.03; }
+
+        .project-info { padding: 35px; display: flex; flex-direction: column; justify-content: center; }
+        .project-title { font-size: 1.8rem; margin-bottom: 10px; }
+        .tech-stack { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tech-stack span { font-size: 10px; background: var(--bg-main); padding: 3px 8px; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--border-color); }
+        .project-links { display: flex; gap: 12px; }
+        .project-links .btn { padding: 10px 20px; font-size: 14px; }
+        .btn-outline { background: transparent; border: 1px solid var(--text-light); color: var(--text-light); }
+        .btn-outline:hover { background: var(--text-light); color: var(--bg-main); }
+
+        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; max-width: 800px; z-index: 2; }
+        .contact-item { padding: 30px 20px; background: var(--bg-card); border: 1px solid var(--border-color); text-decoration: none; color: var(--text-light); transition: 0.3s; display: flex; align-items: center; gap: 20px; }
+        .contact-item:hover { border-color: var(--primary); }
+        .contact-item i { font-size: 1.8rem; color: var(--primary); }
+        .contact-item div { text-align: left; }
+        .contact-item span { display: block; font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700; }
+        .contact-label { font-size: 0.85rem; color: var(--text-muted); font-family: 'Space Grotesk', sans-serif; font-weight: 400;}
+
+        @media (max-width: 900px) {
+            html { scroll-snap-type: none; }
+            section { height: auto; padding: 100px 5%; }
+            .about-grid, .project-card, .contact-grid { grid-template-columns: 1fr; }
+            .project-visual { height: 200px; border-right: none; border-bottom: 1px solid var(--border-color); }
+            .projects-container { max-height: none; overflow: visible; }
+            .hero-title { font-size: 3rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">K.JOFFRET</div>
+        <div class="nav-controls">
+            <ul class="nav-links">
+                <li><a href="#introduction" data-i18n="nav_home">Accueil</a></li>
+                <li><a href="#profil" data-i18n="nav_profile">Profil</a></li>
+                <li><a href="#projets" data-i18n="nav_projects">Projets</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+            </ul>
+            <button id="theme-btn" class="btn-icon" aria-label="Toggle Theme"><i class="fa-solid fa-sun"></i></button>
+            <button id="lang-btn" class="btn-icon">EN</button>
+        </div>
+    </nav>
+
+    <section id="introduction">
+        <div class="bg-decorations">
+            <svg class="static-svg svg-1" viewBox="0 0 100 100"><circle cx="50" cy="20" r="5"/><circle cx="20" cy="55" r="5"/><circle cx="80" cy="55" r="5"/><circle cx="50" cy="85" r="5"/><line x1="50" y1="25" x2="20" y2="50"/><line x1="50" y1="25" x2="80" y2="50"/><line x1="20" y1="60" x2="50" y2="80"/><line x1="80" y1="60" x2="50" y2="80"/><line x1="50" y1="25" x2="50" y2="80"/></svg>
+            <svg class="static-svg svg-2" viewBox="0 0 100 100"><path d="M15 80 L15 20 M15 80 L85 80" stroke-width="2"/><path d="M20 70 L38 45 L56 58 L80 25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="80" cy="25" r="3" fill="var(--primary)"/></svg>
+            <svg class="static-svg svg-3" viewBox="0 0 100 100"><polygon points="50,15 85,35 85,75 50,95 15,75 15,35" stroke-width="1.5"/><path d="M37 50 L45 42 M37 50 L45 58 M63 50 L55 42 M63 50 L55 58" stroke-width="1.5"/></svg>
+        </div>
+        
+        <div class="hero-content-wrapper">
+            <h1 class="hero-title">Kévin<br><span class="animated-name">JOFFRET</span></h1>
+            <div class="hero-subtitle">
+                <span id="typed-text"></span><span class="cursor"></span>
+            </div>
+            <div>
+                <a href="#projets" class="btn" data-i18n="hero_btn">Découvrir mon travail</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="profil">
+        <h2><span class="highlight">01.</span> <span data-i18n="profile_title">LE PROFIL</span></h2>
+        <div class="about-grid">
+            <div class="box">
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;" data-i18n="about_subtitle">Étudiant & Passionné</h3>
+                <p class="text-content" data-i18n="about_p1">Actuellement étudiant spécialisé en <strong>IA & Data</strong>, je consolide mes bases en mathématiques et en ingénierie logicielle. Je suis curieux, volontaire, et j'aime comprendre comment les choses fonctionnent sous le capot.</p>
+                <p class="text-content" data-i18n="about_p2">Je n'ai pas encore l'expérience d'un senior, mais j'aborde chaque projet étudiant ou personnel avec sérieux et une réelle envie de bien faire. Mon objectif actuel est d'apprendre au maximum pour devenir un ingénieur complet.</p>
+            </div>
+            <div class="box">
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;" data-i18n="skills_title">Technologies étudiées</h3>
+                <p class="text-content" style="font-size:0.9rem;" data-i18n="skills_desc">Outils et langages sur lesquels je me forme activement :</p>
+                <div class="skills">
+                    <span class="skill-tag">GOLANG</span>
+                    <span class="skill-tag">JAVASCRIPT / WEB</span>
+                    <span class="skill-tag">NODE.JS & EXPRESS</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">JAVA</span>
+                    <span class="skill-tag" data-i18n="skill_math">MATHÉMATIQUES</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projets">
+        <h2><span class="highlight">02.</span> <span data-i18n="projects_title">PROJETS ÉTUDIANTS</span></h2>
+        
+        <div class="projects-container">
+            <div class="project-card">
+                <div class="project-visual">
+                    <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=600&auto=format&fit=crop" class="active" alt="Game Screen 1">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&auto=format&fit=crop" alt="Game Screen 2">
+                    <i class="fa-solid fa-gamepad fa-4x"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">SpaceShip - Battle</h3>
+                    <p class="text-content" data-i18n="project1_desc">Création d'un jeu vidéo de tir 2D jouable sur navigateur. Ce projet m'a permis d'apprendre la gestion du réseau avec Socket.io et de pratiquer le JavaScript dans un contexte ludique.</p>
+                    <div class="tech-stack">
+                        <span>Node.js</span><span>Socket.io</span><span>Express</span><span>JavaScript</span><span>HTML5 / CSS3</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/joffretkevin727/YboostB1" target="_blank" class="btn"><i class="fa-brands fa-github"></i> <span data-i18n="project_code">Code Source</span></a>
+                        <a href="https://github.com/joffretkevin727/YboostB1#readme" target="_blank" class="btn btn-outline"><i class="fa-solid fa-file-invoice"></i> <span data-i18n="project_doc">Documentation</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-visual">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop" class="active" alt="Data Screen 1">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop" alt="Data Screen 2">
+                    <i class="fa-solid fa-brain fa-4x"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title" data-i18n="project2_title">[Projet Spécialisé IA / Data]</h3>
+                    <p class="text-content" data-i18n="project2_desc">Cadre réservé pour l'affichage d'un futur projet d'analyse de données, de machine learning ou de traitement mathématique développé au cours de mon cursus.</p>
+                    <div class="tech-stack">
+                        <span>Python</span><span>SQL</span><span>Algorithmes</span><span>Data Mining</span>
+                    </div>
+                    <div class="project-links">
+                        <button class="btn btn-outline" disabled><span data-i18n="project_coming">En cours...</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-visual">
+                    <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=600&auto=format&fit=crop" class="active" alt="Backend Screen 1">
+                    <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=600&auto=format&fit=crop" alt="Backend Screen 2">
+                    <i class="fa-solid fa-server fa-4x"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title" data-i18n="project3_title">[Projet Infrastructure & API]</h3>
+                    <p class="text-content" data-i18n="project3_desc">Emplacement structuré destiné à valoriser mes compétences applicatives ou la création d'API performantes avec Golang ou Java.</p>
+                    <div class="tech-stack">
+                        <span>Golang</span><span>Java</span><span>REST API</span><span>Architecture</span>
+                    </div>
+                    <div class="project-links">
+                        <button class="btn btn-outline" disabled><span data-i18n="project_coming">En cours...</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-visual">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop" class="active" alt="Web Screen 1">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&auto=format&fit=crop" alt="Web Screen 2">
+                    <i class="fa-solid fa-code fa-4x"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">[Projet Applicatif 4]</h3>
+                    <p class="text-content">Emplacement disponible pour l'intégration de vos futures réalisations techniques, hackathons ou projets d'ingénierie.</p>
+                    <div class="tech-stack">
+                        <span>À définir</span><span>Stack technique</span>
+                    </div>
+                    <div class="project-links">
+                        <button class="btn btn-outline" disabled><span data-i18n="project_coming">En cours...</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-visual">
+                    <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&auto=format&fit=crop" class="active" alt="Tech Screen 1">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop" alt="Tech Screen 2">
+                    <i class="fa-solid fa-layer-group fa-4x"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">[Projet Applicatif 5]</h3>
+                    <p class="text-content">Cinquième cadre allongé pour structurer vos expériences d'études, laboratoires de recherche ou développement open-source.</p>
+                    <div class="tech-stack">
+                        <span>À définir</span><span>Stack technique</span>
+                    </div>
+                    <div class="project-links">
+                        <button class="btn btn-outline" disabled><span data-i18n="project_coming">En cours...</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2><span class="highlight">03.</span> <span data-i18n="contact_title">ME CONTACTER</span></h2>
+        <p class="text-content" style="max-width: 600px; margin-top: 10px;" data-i18n="contact_desc">À la recherche d'une alternance, d'un stage ou simplement ouvert à la discussion pour des conseils dans le milieu de la Data et de l'IA.</p>
+        <div class="contact-grid">
+            <a href="mailto:joffretkevin727@gmail.com" class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                    <span class="contact-label" data-i18n="contact_email_pro">Email Personnel</span>
+                    <span>joffretkevin727@gmail.com</span>
+                </div>
+            </a>
+            <a href="mailto:kevin.joffret@ynov.com" class="contact-item">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <div>
+                    <span class="contact-label" data-i18n="contact_email_edu">Email École</span>
+                    <span>kevin.joffret@ynov.com</span>
+                </div>
+            </a>
+            <a href="https://www.linkedin.com/in/joffret-kévin-informatique/" target="_blank" class="contact-item">
+                <i class="fa-brands fa-linkedin-in"></i>
+                <div>
+                    <span class="contact-label">Réseau Professionnel</span>
+                    <span>LinkedIn</span>
+                </div>
+            </a>
+            <a href="https://github.com/joffretkevin727" target="_blank" class="contact-item">
+                <i class="fa-brands fa-github"></i>
+                <div>
+                    <span class="contact-label">Projets & Code</span>
+                    <span>GitHub</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', () => document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50));
+
+        const dict = {
+            fr: {
+                nav_home: "Accueil", nav_profile: "Profil", nav_projects: "Projets", nav_contact: "Contact",
+                hero_sub: "> Étudiant IA & Data // En apprentissage continu", hero_btn: "Découvrir mon travail",
+                profile_title: "LE PROFIL", about_subtitle: "Étudiant & Passionné",
+                about_p1: "Actuellement étudiant spécialisé en <strong>IA & Data</strong>, je consolide mes bases en mathématiques et en ingénierie logicielle. Je suis curieux, volontaire, et j'aime comprendre comment les choses fonctionnent sous le capot.",
+                about_p2: "Je n'ai pas encore l'expérience d'un senior, mais j'aborde chaque projet étudiant ou personnel avec sérieux et une réelle envie de bien faire. Mon objectif actuel est d'apprendre au maximum pour devenir un ingénieur complet.",
+                skills_title: "Technologies étudiées", skills_desc: "Outils et langages sur lesquels je me forme activement :", skill_math: "MATHÉMATIQUES",
+                projects_title: "PROJETS ÉTUDIANTS", 
+                project1_desc: "Création d'un jeu vidéo de tir 2D jouable sur navigateur. Ce projet m'a permis d'apprendre la gestion du réseau avec Socket.io et de pratiquer le JavaScript dans un contexte ludique.",
+                project2_title: "[Projet Spécialisé IA / Data]",
+                project2_desc: "Cadre réservé pour l'affichage d'un futur projet d'analyse de données, de machine learning ou de traitement mathématique développé au cours de mon cursus.",
+                project3_title: "[Projet Infrastructure & API]",
+                project3_desc: "Emplacement structuré destiné à valoriser mes compétences applicatives ou la création d'API performantes avec Golang ou Java.",
+                project_code: "Code Source", project_doc: "Documentation", project_coming: "En cours...",
+                contact_title: "ME CONTACTER", contact_desc: "À la recherche d'une alternance, d'un stage ou simplement ouvert à la discussion pour des conseils dans le milieu de la Data et de l'IA.",
+                contact_email_pro: "Email Personnel", contact_email_edu: "Email École"
+            },
+            en: {
+                nav_home: "Home", nav_profile: "Profile", nav_projects: "Projects", nav_contact: "Contact",
+                hero_sub: "> AI & Data Student // Continuous Learner", hero_btn: "View my work",
+                profile_title: "PROFILE", about_subtitle: "Student & Enthusiast",
+                about_p1: "Currently a student specializing in <strong>AI & Data</strong>, I am solidifying my foundation in mathematics and software engineering. I am curious, dedicated, and I love understanding how things work under the hood.",
+                about_p2: "I don't have a senior's experience yet, but I approach every student or personal project seriously and with a real desire to do well. My current goal is to learn as much as possible to become a well-rounded engineer.",
+                skills_title: "Technologies Studied", skills_desc: "Tools and languages I am actively learning:", skill_math: "MATHEMATICS",
+                projects_title: "STUDENT PROJECTS",
+                project1_desc: "Created a 2D shooter web game playable in the browser. This project allowed me to learn network management with Socket.io and practice JavaScript in a fun context.",
+                project2_title: "[AI / Data Specialized Project]",
+                project2_desc: "Space reserved for displaying a future data analysis, machine learning or mathematical project developed during my studies.",
+                project3_title: "[Infrastructure & API Project]",
+                project3_desc: "Structured layout intended to showcase my backend application skills or building high-performance APIs with Golang or Java.",
+                project_code: "Source Code", project_doc: "Documentation", project_coming: "In progress...",
+                contact_title: "CONTACT ME", contact_desc: "Looking for a work-study program, an internship, or simply open to discussions and advice in the Data and AI field.",
+                contact_email_pro: "Personal Email", contact_email_edu: "School Email"
+            }
+        };
+
+        let currentLang = new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'fr';
+        let typingTimeout;
+
+        const runTypeWriter = (text, i) => {
+            const el = document.getElementById('typed-text');
+            if (i === 0) el.innerHTML = '';
+            if (i < text.length) {
+                el.innerHTML += text.charAt(i);
+                typingTimeout = setTimeout(() => runTypeWriter(text, i + 1), 50);
+            }
+        };
+        
+        const setLang = (lang) => {
+            clearTimeout(typingTimeout);
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = dict[lang][el.getAttribute('data-i18n')]);
+            document.getElementById('lang-btn').innerText = lang === 'fr' ? 'EN' : 'FR';
+            window.history.pushState({}, '', `?lang=${lang}`);
+            runTypeWriter(dict[lang].hero_sub, 0);
+        };
+
+        const toggleTheme = () => {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.getElementById('theme-btn').innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        };
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            const slides = card.querySelectorAll('.project-visual img');
+            if (slides.length <= 1) return;
+            let intervalId = null;
+            let currentSlide = 0;
+            
+            card.addEventListener('mouseenter', () => {
+                intervalId = setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 2000); // Effectue la rotation toutes les 2 secondes
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                clearInterval(intervalId);
+                slides[currentSlide].classList.remove('active');
+                currentSlide = 0;
+                slides[currentSlide].classList.add('active'); // Réinitialise sur la première image au départ du curseur
+            });
+        });
+
+        document.getElementById('theme-btn').addEventListener('click', toggleTheme);
+        document.getElementById('lang-btn').addEventListener('click', () => setLang(currentLang === 'fr' ? 'en' : 'fr'));
+        window.onload = () => setLang(currentLang);
+    </script>
+</body>
+</html>
