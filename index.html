@@ -328,10 +328,10 @@
             border: 1px solid var(--border-color);
             display: grid;
             grid-template-columns: 1fr 1.3fr;
-            min-height: 280px;
             transition: 0.4s;
-            overflow: hidden;
             border-radius: 4px;
+            align-items: stretch;
+            /* Étend les éléments sur toute la hauteur */
         }
 
         .project-card:hover {
@@ -343,9 +343,9 @@
             position: relative;
             overflow: hidden;
             border-right: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            aspect-ratio: 16 / 9;
+            /* Force le conteneur en 16/9 selon sa largeur */
+            width: 100%;
         }
 
         .project-visual img {
@@ -355,6 +355,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            /* Remplit l'espace sans écraser l'image */
             opacity: 0;
             transition: opacity 0.4s ease-in-out;
             z-index: 1;
@@ -597,10 +598,18 @@
         <div class="projects-container">
             <div class="project-card">
                 <div class="project-visual">
-                    <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=600&auto=format&fit=crop"
-                        class="active" alt="Game Screen 1">
-                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&auto=format&fit=crop"
+                    <img src="../portfolio/Assets/image-spaceship-battle/spaceship-battle-menu.png" class="active"
+                        alt="Game Screen 1">
+                    <img src="../portfolio/Assets/image-spaceship-battle/spaceship-battle-lobby.png"
                         alt="Game Screen 2">
+                    <img src="../portfolio/Assets/image-spaceship-battle/spaceship-battle-ingame.png"
+                        alt="Game Screen 3">
+                    <img src="../portfolio/Assets/image-spaceship-battle/spaceship-battle-ingame-fight1.png"
+                        alt="Game Screen 4">
+                    <img src="../portfolio/Assets/image-spaceship-battle/spaceship-battle-ingame-fight2.png"
+                        alt="Game Screen 5">
+                    <img src="../portfolio/Assets/image-spaceship-battle/spaceship-battle-win.png" alt="Game Screen 6">
+                    <img src="../portfolio/Assets/image-spaceship-battle/spaceship-battle-lose.png" alt="Game Screen 7">
                     <i class="fa-solid fa-gamepad fa-4x"></i>
                 </div>
                 <div class="project-info">
@@ -624,10 +633,14 @@
 
             <div class="project-card">
                 <div class="project-visual">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop"
-                        class="active" alt="Data Screen 1">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop"
-                        alt="Data Screen 2">
+                    <img src="../portfolio/Assets/image-boutique/boutique-home.png" class="active" alt="Data Screen 1">
+                    <img src="../portfolio/Assets/image-boutique/boutique-home-filtre.png" alt="Data Screen 2">
+                    <img src="../portfolio/Assets/image-boutique/boutique-home-recherche.png" alt="Data Screen 3">
+                    <img src="../portfolio/Assets/image-boutique/boutique-presentation.png" alt="Data Screen 4">
+                    <img src="../portfolio/Assets/image-boutique/boutique-presentation-achat.png" alt="Data Screen 5">
+                    <img src="../portfolio/Assets/image-boutique/boutique-inscription.png" alt="Data Screen 6">
+                    <img src="../portfolio/Assets/image-boutique/boutique-connexion.png" alt="Data Screen 7">
+                    <img src="../portfolio/Assets/image-boutique/boutique-more.png" alt="Data Screen 8">
                     <i class="fa-solid fa-brain fa-4x"></i>
                 </div>
                 <div class="project-info">
@@ -640,10 +653,11 @@
                             CSS3</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://github.com/joffretkevin727/livrables-boutique-js-Les-sbires-Lecheurs" target="_blank" class="btn"><i
-                                class="fa-brands fa-github"></i> <span data-i18n="project_code">Code Source</span></a>
-                        <a href="https://github.com/joffretkevin727/livrables-boutique-js-Les-sbires-Lecheurs#readme" target="_blank"
-                            class="btn btn-outline"><i class="fa-solid fa-file-invoice"></i> <span
+                        <a href="https://github.com/joffretkevin727/livrables-boutique-js-Les-sbires-Lecheurs"
+                            target="_blank" class="btn"><i class="fa-brands fa-github"></i> <span
+                                data-i18n="project_code">Code Source</span></a>
+                        <a href="https://github.com/joffretkevin727/livrables-boutique-js-Les-sbires-Lecheurs#readme"
+                            target="_blank" class="btn btn-outline"><i class="fa-solid fa-file-invoice"></i> <span
                                 data-i18n="project_doc">Documentation</span></a>
                     </div>
                 </div>
@@ -651,22 +665,39 @@
 
             <div class="project-card">
                 <div class="project-visual">
-                    <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=600&auto=format&fit=crop"
-                        class="active" alt="Backend Screen 1">
-                    <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=600&auto=format&fit=crop"
-                        alt="Backend Screen 2">
+                    <img src="../portfolio/Assets/image-forum/forum-home.png"
+                        class="active" alt="Data Screen 1">
+                    <img src="../portfolio/Assets/image-forum/forum-home-filtre-tag.png"
+                        alt="Data Screen 2">
+                        <img src="../portfolio/Assets/image-forum/forum-home-recherche.png"
+                        alt="Data Screen 3">
+                        <img src="../portfolio/Assets/image-forum/forum-inscription.png"
+                        alt="Data Screen 4">
+                        <img src="../portfolio/Assets/image-forum/forum-connexion.png"
+                        alt="Data Screen 5">
+                        <img src="../portfolio/Assets/image-forum/forum-topic-créer.png"
+                        alt="Data Screen 6">
+                        <img src="../portfolio/Assets/image-forum/forum-topic.png"
+                        alt="Data Screen 7">
+                        <img src="../portfolio/Assets/image-forum/forum-profil.png"
+                        alt="Data Screen 8">
                     <i class="fa-solid fa-server fa-4x"></i>
                 </div>
                 <div class="project-info">
-                    <h3 class="project-title" data-i18n="project3_title">[Projet Infrastructure & API]</h3>
-                    <p class="text-content" data-i18n="project3_desc">Emplacement structuré destiné à valoriser mes
-                        compétences applicatives ou la création d'API performantes avec Golang ou Java.</p>
+                    <h3 class="project-title" data-i18n="project3_title">La Kévin Dorée</h3>
+                    <p class="text-content" data-i18n="project3_desc">Forum basé sur le thème des patisseries réaliser en architecture MVC.
+                         Ce projet m'a permis de construire une API performante avec Golang. J'ai également appris a mieux manipuler le javascript
+                          et de faire communiquer notre frontend et notre backend de deux langages differents.</p>
                     <div class="tech-stack">
-                        <span>Golang</span><span>Java</span><span>REST API</span><span>Architecture</span>
+                        <span>Golang</span><span>REST API</span><span>SQL</span><span>Javascript</span><span>HTML5 / CSS3</span>
                     </div>
                     <div class="project-links">
-                        <button class="btn btn-outline" disabled><span data-i18n="project_coming">En
-                                cours...</span></button>
+                        <a href="https://github.com/joffretkevin727/livrables_forum_La_Kevin_doree"
+                            target="_blank" class="btn"><i class="fa-brands fa-github"></i> <span
+                                data-i18n="project_code">Code Source</span></a>
+                        <a href="https://github.com/joffretkevin727/livrables_forum_La_Kevin_doree#readme"
+                            target="_blank" class="btn btn-outline"><i class="fa-solid fa-file-invoice"></i> <span
+                                data-i18n="project_doc">Documentation</span></a>
                     </div>
                 </div>
             </div>
@@ -769,8 +800,8 @@
                 project1_desc: "Création d'un jeu vidéo de tir 2D jouable sur navigateur. Ce projet m'a permis d'apprendre la gestion du réseau avec Socket.io et de pratiquer le JavaScript dans un contexte ludique.",
                 project2_title: "Les-sbires-Lecheurs",
                 project2_desc: "BOUTIQUE e-commerce en architecture MVC. Ce projet m'a permis de maîtriser les principes de base du développement web et de comprendre l'importance d'une bonne organisation du code.",
-                project3_title: "[Projet Infrastructure & API]",
-                project3_desc: "Emplacement structuré destiné à valoriser mes compétences applicatives ou la création d'API performantes avec Golang ou Java.",
+                project3_title: "La Kévin Dorée",
+                project3_desc: "Forum basé sur le thème des patisseries réaliser en architecture MVC. Ce projet m'a permis de construire une API performante avec Golang. J'ai également appris a mieux manipuler le javascript et de faire communiquer notre frontend et notre backend de deux langages differents.",
                 project_code: "Code Source", project_doc: "Documentation", project_coming: "En cours...",
                 contact_title: "ME CONTACTER", contact_desc: "À la recherche d'une alternance, d'un stage ou simplement ouvert à la discussion pour des conseils dans le milieu de la Data et de l'IA.",
                 contact_email_pro: "Email Personnel", contact_email_edu: "Email École"
@@ -785,9 +816,9 @@
                 projects_title: "STUDENT PROJECTS",
                 project1_desc: "Created a 2D shooter web game playable in the browser. This project allowed me to learn network management with Socket.io and practice JavaScript in a fun context.",
                 project2_title: "Les-sbires-Lecheurs",
-        project2_desc: "E-commerce shop built with MVC architecture. This project allowed me to master the core principles of web development and understand the importance of code organization.",
-                project3_title: "[Infrastructure & API Project]",
-                project3_desc: "Structured layout intended to showcase my backend application skills or building high-performance APIs with Golang or Java.",
+                project2_desc: "E-commerce shop built with MVC architecture. This project allowed me to master the core principles of web development and understand the importance of code organization.",
+                project3_title: "La Kévin Dorée",
+                project3_desc: "Pastry-themed forum built with an MVC architecture. This project allowed me to build a high-performance API with Golang. I also learned to better manipulate JavaScript and make our frontend and backend communicate across two different languages.",
                 project_code: "Source Code", project_doc: "Documentation", project_coming: "In progress...",
                 contact_title: "CONTACT ME", contact_desc: "Looking for a work-study program, an internship, or simply open to discussions and advice in the Data and AI field.",
                 contact_email_pro: "Personal Email", contact_email_edu: "School Email"
